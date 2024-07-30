@@ -15,6 +15,7 @@
 <button type="button" onclick="generateKML()">Upload and Generate KML</button>
 </form>
 <textarea id="kmlOutput" rows="20" cols="80" readonly></textarea>
+<button type="button" onclick="copyToClipboard()">Copy KML to Clipboard</button>
 <script>
        function generateKML() {
            const fileInput = document.getElementById('file');
@@ -28,7 +29,7 @@
                const jsonData = XLSX.utils.sheet_to_json(worksheet);
                const engineerStyles = {};
                const colors = [
-                   {color: 'yellow', url: 'http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png', colorCode: 'ff00ffff'},
+                    {color: 'yellow', url: 'http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png', colorCode: 'ff00ffff'},
                    {color: 'green', url: 'http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png', colorCode: 'ff00ff00'},                  
                    {color: 'blue', url: 'http://maps.google.com/mapfiles/kml/pushpin/blue-pushpin.png', colorCode: 'ffff0000'},                   
                    {color: 'red', url: 'http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png', colorCode: 'ff0000ff'},
@@ -115,6 +116,11 @@
                document.getElementById('kmlOutput').textContent = kmlContent;
            };
            reader.readAsArrayBuffer(file);
+       }
+       function copyToClipboard() {
+           const kmlOutput = document.getElementById('kmlOutput');
+           kmlOutput.select();
+           document.execCommand('copy');
        }
 </script>
 </body>
